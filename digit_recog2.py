@@ -47,6 +47,11 @@ model.fit(X_train,y_train,epochs=10,batch_size=1000)
 # prediction
 # prediction.to_csv('sample_submission.csv',header=True)
 # score = model.evaluate(X_test, y_test, batch_size=1000)
-
-
-
+input_test = pd.read_csv('test.csv')
+input_test = input_test.values
+input_test = input_test/255
+input_test.shape
+pred = model.predict(input_test, batch_size=1000)
+pred = np.argmax(pred, axis=1)
+pred = pd.DataFrame(pred)
+pred.to_csv('sample_submission.csv',header=None)
